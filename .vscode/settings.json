@@ -14,7 +14,7 @@
       },
       "active": true,
       "links": {
-          "Unit Tests Portal": "${serverUrl}/csp/sys/%25UnitTest.Portal.Home.cls?$NAMESPACE=USER"
+        "Unit Tests Portal": "${serverUrl}/csp/sys/%25UnitTest.Portal.Home.cls?$NAMESPACE=USER"
       }
     },
     "sqltools.connections": [

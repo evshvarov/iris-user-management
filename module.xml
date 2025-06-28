@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-  <Document name="objectscript-template.ZPM">
+  <Document name="shvarov-user-management.ZPM">
     <Module>
-      <Name>objectscript-template</Name>
-      <Version>1.1.2</Version>
+      <Description> Web Users Authentication and Management Module</Description>
+      <Name>shvarov-user-management</Name>
+      <Version>1.0.0</Version>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
-      <Resource Name="dc.sample.PKG"/>
+      <Resource Name="shvarov.um.PKG"/>
+      <Resource Name="shvarov.oauth.google.PKG"/>
+    <CSPApplication 
+        Url="/auth"
+        DispatchClass="shvarov.oauth.google.disp"
+        MatchRoles=":{$dbrole}"
+        PasswordAuthEnabled="0"
+        UnauthenticatedEnabled="1"
+        Recurse="1"
+        UseCookies="2"
+        CookiePath="/auth"
+       />
+    <Invoke Class="shvarov.oauth.google.security" Method="SetupSecurity">
+    </Invoke>
+    
     </Module>
   </Document>
 </Export>

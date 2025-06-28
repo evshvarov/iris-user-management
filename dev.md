@@ -54,7 +54,7 @@ repo -n registry -r -url https://test.pm.community.intersystems.com/registry/ -u
 
 ## get back to public zpm registry
 ```
-repo -r -n registry -url https://pm.community.intersystems.com/
+repo -r -n registry -url https://pm.community.intersystems.com/ -user "" -pass ""
 ```
 
 ## export a global in runtime into the repo
