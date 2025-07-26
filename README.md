@@ -29,3 +29,7 @@ $ docker-compose up -d
 
 the module installs /auth end-point that provides a {backend API}(https://github.com/evshvarov/iris-user-management/blob/master/src/shvarov/oauth/google/spec.cls) for code->token exchange (now for google only) and to sign-in the user (will be stored in um.users class), also to prove JWT token in Google that is being used for your API.
 
+Expects GOOGLE_CLIENT_ID and GOOGLE_SECRET_KEY passed as env variables
+
+
+
