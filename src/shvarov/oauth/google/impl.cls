@@ -58,8 +58,9 @@ ClassMethod FrontendAuthCallback(code As %String, redirecturi As %String) As %Dy
     set aToken = token."access_token"
     set idToken = token."id_token"
     set user=..GetUserInfo(aToken)
-    //set ^GoogleUser = user.id
-    set sc=##class(shvarov.um.users).CreateUser(user.id, "google", user.email)
+    //set ^AGoogleUser = user.id
+    
+    set sc=##class(shvarov.um.users).GetUser(user.id, "google", user.email)
     do ..StartUserSession(user.id, idToken, token."expires_in")
     //set ^GoogleUser=user.%ToJSON()
     set resJSON = {}
