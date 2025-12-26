@@ -27,6 +27,8 @@ try:
     return id_info
 except ValueError as e:
         # Invalid token
+    errobj=iris.cls("%Exception.General")._New(str(e),"Google JWT Verification Failed")
+    errobj.Log()
     print("Token verification failed:", e)
     return None
 }
