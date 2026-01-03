@@ -18,6 +18,8 @@ ClassMethod VerifyGoogleJWT(idtoken, clientid) [ Language = python ]
 {
 from google.oauth2 import id_token
 from google.auth.transport import requests
+import traceback
+import iris
 
 try:
     # Verify the integrity and decode the token
@@ -28,6 +30,10 @@ try:
 except ValueError as e:
         # Invalid token
     errobj=iris.cls("%Exception.General")._New(str(e),"Google JWT Verification Failed")
+    stack_trace_list = traceback.format_tb(e.__traceback__)
+    if stack_trace_list:
+        last_instruction_line = stack_trace_list[-1].strip()
+        errobj.Location = last_instruction_line
     errobj.Log()
     print("Token verification failed:", e)
     return None
