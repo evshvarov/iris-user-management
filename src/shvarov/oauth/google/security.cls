@@ -1,14 +1,15 @@
 Class shvarov.oauth.google.security Extends %RegisteredObject
 {
 
-ClassMethod SetupSecurity() As %Status
+ClassMethod SetupSecurity(db as %String="USER") As %Status
 {
     Set tSC = $$$OK
     d ..IntroduceSQLRole()
     d ..AddRole()
     d ..AddCORS()
-    d ..IntroduceRoleDBUSER()
-    d ..AddRoleToUser()
+    d ..IntroduceRoleDBRead(db)
+    set rolename="DB_"_db_"_Read"
+    d ..AddRoleToUser(,rolename)
     Quit tSC
 }
 
@@ -52,19 +53,24 @@ ClassMethod IntroduceSQLRole() As %Status
     Quit $$$OK
 }
 
-ClassMethod IntroduceRoleDBUSER() As %Status
+ClassMethod IntroduceRoleDBRead(db as %String="USER") As %Status
 {
-    &SQL(CREATE ROLE DB_USER_Read)
-    If SQLCODE '= 0 {
-        Quit $$$ERROR($$$GeneralError, "Error creating role: "_SQLCODE)
-    }
+    set rolename="DB_"_db_"_Read"
+    
+    
+    #; &SQL(CREATE ROLE DB_USER_Read)
+    #; If SQLCODE '= 0 {
+    #;     Quit $$$ERROR($$$GeneralError, "Error creating role: "_SQLCODE)
+    #; }
 
     // Change to the %SYS namespace.
     new $NAMESPACE
     set $NAMESPACE="%SYS"
-    set properties("Resources")="%DB_USER:R"
+    Set sc = ##class(Security.Roles).Create(rolename,"Role for OAuth app","%DB_"_db_":R")
  
-    Set sc = ##class(Security.Roles).Modify("DB_USER_Read",.properties)
+    //set properties("Resources")="%DB_USER:R"
+ 
+    //Set sc = ##class(Security.Roles).Modify("DB_USER_Read",.properties)
     If $$$ISERR(sc) {
         Quit $$$ERROR($$$GeneralError, "Error modifying role: "_sc)
     }
